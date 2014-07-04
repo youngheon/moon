@@ -1,6 +1,7 @@
 {% extends "__list.html" %}
 {% load humanize %}
 {% block tab %}
+
 {% if re.success == True %}
     <div class="position right-9 mtop-9">
         <button id="like_company_{{ re.result.id }}_bt" onclick="like_save('company', '{{re.result.id}}');" class="like off"></button>
