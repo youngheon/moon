@@ -6,13 +6,13 @@
 		<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
 		<script type="text/javascript" src="http://ui.buzzni.com/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript">
-		if (typeof jQuery == 'undefined') { document.write('<script type="text/javascript" src="' + "http://ui.buzzni.com/jquery-1.11.1.min.js?v="+ Math.floor(Math.random() * 1000000) + '"></scr' + 'ipt>'); }
+		if (typeof jQuery == 'undefined') { document.write('<script type="text/javascript" src="' + "http://ui.buzzni.com/jquery-1.11.1.min.js?v="+ Math.floor(Math.random()) + '"></scr' + 'ipt>'); }
         var user_id = "{{request.session.user.id}}";
 		var user_token = "{{request.session.user.token}}";
-		var service = "brandmoa";
+		var service = "company";
         </script>
         {% block js_service %}{% endblock %}
-	    <script type="text/javascript" src="http://ui.buzzni.com/basic.js?v=5"></script>
+	    <script type="text/javascript" src="http://ui.buzzni.com/basic.js"></script>
 		<link href="http://ui.buzzni.com/basic.css" rel="stylesheet">
 		{% block css_basic %}{% endblock %}
 		{% block css %}{% endblock %}
@@ -24,7 +24,7 @@
             {% block list_scroll %}
                 <div id="list_scroll" ></div>
                 <div id="scroll_start" class="align-center padding-9 clear">
-                    <img src="http://ui.buzzni.com/brandmoa/scroll_start.gif" style="height:11px;"/>
+                    <img src="http://ui.buzzni.com/brandmoa/scroll_start.gif" style="height:9px;"/>
                 </div>
                 {% block list_scroll_end %}
                     <div id="scroll_end" class="align-center padding-9 block-hide clear">
@@ -36,6 +36,8 @@
         </div>
         <script type="text/javascript">
         var rest_url = "http://rpc.brandmoa.net";
+        var company_fields = 'img,name,id,sale,cate,employee_num,addr,avg_salary,cmtary_num,score';
+        var cmtary_fields = "id,rate,site,title,pros,cons,cmt,code,source,author";
         var num = 10;
         var page = 1;
         var scroll_start = false;
@@ -142,6 +144,9 @@
             var _url = "/stat/"+url;
             var _data = $.extend({"v":rand(), "xid":user_id}, val);
             $.get(_url, _data, callback);
+        }
+        function company_click(company_id){
+            location_href("/c?company_id="+company_id+"&btn=search&tabbar=hide&title=회사정보");
         }
         </script>
         {% block js_basic %}{% endblock %}
