@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8">
+		<title>{% if title %}{{ title }}{% else %}{{request.GET.title}}{% endif %}</title>
+		<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+		<script type="text/javascript" src="http://ui.buzzni.com/jquery-1.11.1.min.js"></script>
+		<script type="text/javascript">
+		if (typeof jQuery == 'undefined') { document.write('<script type="text/javascript" src="' + "http://ui.buzzni.com/jquery-1.11.1.min.js?v="+ Math.floor(Math.random() * 1000000) + '"></scr' + 'ipt>'); }
+        var user_id = "{{request.session.user.id}}";
+		var user_token = "{{request.session.user.token}}";
+		var service = "brandmoa";
+        </script>
+        {% block js_service %}{% endblock %}
+	    <script type="text/javascript" src="http://ui.buzzni.com/basic.js?v=5"></script>
+		<link href="http://ui.buzzni.com/basic.css" rel="stylesheet">
+		{% block css_basic %}{% endblock %}
+		{% block css %}{% endblock %}
+    </head>
+	<body>
+        <div id="container">
+            {% block tab %}{% endblock %}
+            {% block list_start %}{% endblock %}
+            {% block list_scroll %}
+                <div id="list_scroll" ></div>
+                <div id="scroll_start" class="align-center padding-9 clear">
+                    <img src="http://ui.buzzni.com/brandmoa/scroll_start.gif" style="height:11px;"/>
+                </div>
+                {% block list_scroll_end %}
+                    <div id="scroll_end" class="align-center padding-9 block-hide clear">
+                        <img src="http://ui.buzzni.com/i/scroll_end.png" style="height:9px;"/>
+                    </div>
+                {% endblock %}
+            {% endblock %}
+            {% block list_end %}{% endblock %}
+        </div>
+        <script type="text/javascript">
+        var rest_url = "http://rpc.brandmoa.net";
+        var num = 10;
+        var page = 1;
+        var scroll_start = false;
+        var scroll_end = false;
+        var list_count = 0;
+        $(function() {
+            //리스트 시작
+            list_scroll();
+        });
+        function list_end(){
+            scroll_end = true;
+            $('#scroll_start').hide();
+            $('#scroll_end').show();
+        }
+        //리스트 결과값 json 받아오기
+        function list_result(re, table, skin){
+            if (re.success == true) {
+                var data_length = re.result.data.length;
+                if (data_length == 0) {
+                    list_end();
+                } else {
+                    scroll_start = false;
+                    page += 1;
+                    for (var i = 0; i < data_length; ++i) {
+                        list_count += 1;
+                        $('#list_scroll').append(eval("skin_" + table + "(re.result.data[i], table, skin, i, re.result.count)"));
+                    }
+                    if (page <= 2) {
+                        if ($(window).height() - $("#scroll_start").offset().top - $("#scroll_start").height() > 10) {
+                            list_scroll();
+                        }
+                    }
+                }
+            } else {
+                native_send_toast(re.msg);
+            }
+        }
+        function append_result(re, table, skin, id){
+            if (re.success == true) {
+                var data_length = re.result.data.length;
+                if (data_length == 0) {
+                } else {
+                    for (var i = 0; i < data_length; ++i) {
+                        $('#'+id).append(eval("skin_" + table + "(re.result.data[i], table, skin, i)"));
+                    }
+                }
+            } else {
+                native_send_toast(re.msg);
+            }
+        }
+        </script>
+        {% block js_list %}
+        <script type="text/javascript">
+        $(function() {
+            //리스트 스크롤
+            $(window).scroll(function () {
+                if (scroll_start == false) {
+                    if (scroll_end == false) {
+                        if ($(window).scrollTop() + $(window).height() > $(document).height() - 88) {
+                            list_scroll();
+                        }
+                    }
+                }
+            });
+        });
+        //리스트 다시시작
+        function list_reset() {
+            $("#list_scroll").empty();
+            $('#scroll_start').show();
+            $('#scroll_end').hide();
+            page = 1;
+            scroll_start = false;
+            scroll_end = false;
+            list_count = 0;
+            list_scroll();
+        }
+        </script>
+        {% endblock %}
+        <script type="text/javascript">
+        //ajax json callback
+        function ajax_json(table,val,callback,sync){
+            var _url =rest_url+"/"+table;
+            //통계용으로 추가
+            var _data = $.extend({"v":rand(), "xid":user_id}, val);
+            $.ajax({
+                //type:"POST",
+                beforeSend: function(jqXHR, settings){
+                    jqXHR.setRequestHeader("X-Auth-Token", user_token);
+                },
+                dataType:"json",
+                url:_url,
+                async:sync,
+                data:_data,
+                success: callback
+            });
+        }
+        //ajax get callback
+        function send_error(url,val,callback){
+            var _url = "/error/"+url;
+            var _data = $.extend({"v":rand(), "xid":user_id}, val);
+            $.get(_url, _data, callback);
+        }
+        function send_stat(url,val,callback){
+            var _url = "/stat/"+url;
+            var _data = $.extend({"v":rand(), "xid":user_id}, val);
+            $.get(_url, _data, callback);
+        }
+        </script>
+        {% block js_basic %}{% endblock %}
+		{% block js %}{% endblock %}
+	</body>
+</html>
