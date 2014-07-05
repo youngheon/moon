@@ -35,14 +35,10 @@
             {% block list_end %}{% endblock %}
         </div>
         <script type="text/javascript">
-        var rest_url = "http://rpc.brandmoa.net";
-        var company_fields = 'img,name,id,sale,cate,employee_num,addr,avg_salary,cmtary_num,score';
-        var cmtary_fields = "id,rate,site,title,pros,cons,cmt,code,source,author";
         var num = 10;
         var page = 1;
         var scroll_start = false;
         var scroll_end = false;
-        var list_count = 0;
         $(function() {
             //리스트 시작
             list_scroll();
@@ -53,40 +49,19 @@
             $('#scroll_end').show();
         }
         //리스트 결과값 json 받아오기
-        function list_result(re, table, skin){
-            if (re.success == true) {
-                var data_length = re.result.data.length;
-                if (data_length == 0) {
-                    list_end();
-                } else {
-                    scroll_start = false;
+        function list_result(re){
+                if (re.length > 9) {
+                    $('#list_scroll').append(re);
                     page += 1;
-                    for (var i = 0; i < data_length; ++i) {
-                        list_count += 1;
-                        $('#list_scroll').append(eval("skin_" + table + "(re.result.data[i], table, skin, i, re.result.count)"));
-                    }
+                    scroll_start = false;
                     if (page <= 2) {
                         if ($(window).height() - $("#scroll_start").offset().top - $("#scroll_start").height() > 10) {
                             list_scroll();
                         }
                     }
-                }
-            } else {
-                native_send_toast(re.msg);
-            }
-        }
-        function append_result(re, table, skin, id){
-            if (re.success == true) {
-                var data_length = re.result.data.length;
-                if (data_length == 0) {
                 } else {
-                    for (var i = 0; i < data_length; ++i) {
-                        $('#'+id).append(eval("skin_" + table + "(re.result.data[i], table, skin, i)"));
-                    }
+                    list_end();
                 }
-            } else {
-                native_send_toast(re.msg);
-            }
         }
         </script>
         {% block js_list %}
@@ -111,7 +86,6 @@
             page = 1;
             scroll_start = false;
             scroll_end = false;
-            list_count = 0;
             list_scroll();
         }
         </script>
@@ -119,8 +93,7 @@
         <script type="text/javascript">
         //ajax json callback
         function ajax_json(table,val,callback,sync){
-            var _url =rest_url+"/"+table;
-            //통계용으로 추가
+            var _url = "http://rpc.brandmoa.net/"+table;
             var _data = $.extend({"v":rand(), "xid":user_id}, val);
             $.ajax({
                 //type:"POST",
@@ -128,6 +101,17 @@
                     jqXHR.setRequestHeader("X-Auth-Token", user_token);
                 },
                 dataType:"json",
+                url:_url,
+                async:sync,
+                data:_data,
+                success: callback
+            });
+        }
+        function ajax_skin(table,val,callback,sync){
+            var _url = "/rpc/" + table;
+            var _data = $.extend({"v":rand(), "xid":user_id}, val);
+            $.ajax({
+                //type:"POST",
                 url:_url,
                 async:sync,
                 data:_data,
@@ -144,9 +128,6 @@
             var _url = "/stat/"+url;
             var _data = $.extend({"v":rand(), "xid":user_id}, val);
             $.get(_url, _data, callback);
-        }
-        function company_click(company_id){
-            location_href("/c?company_id="+company_id+"&btn=search&tabbar=hide&title=회사정보");
         }
         </script>
 

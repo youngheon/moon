@@ -1,0 +1,44 @@
+{% load humanize %}
+{% if result.data %}
+    {% for re in result.data %}
+        <div id="list_{{ request.GET.page }}_{{ forloop.counter }}" class='position-relative margin-3'>
+            <a href="javascript:company_click('{{ re.company.id }}');" class='disblock '>
+                <div class='display-table'>
+                    <div class='table-cell align-center' style='width:80px;'>
+                        <div class='clear-9'></div>
+                        <img class="padding" style='width:50px;border-radius:30px;border:1px solid #eee;' src='http://thum.buzzni.com/unsafe/180x180/smart/{{ re.company.img }}' onerror="this.src='http://thum.buzzni.com/unsafe/180x180/smart/http://ui.buzzni.com/i/nocamera.png'"/>
+                        <div class='clear-9'></div>
+                    </div>
+                    <div class='table-cell-9' style="border-bottom:1px solid #eee;"></div>
+                    <div class='table-cell' style="border-bottom:1px solid #eee;">
+                        <div class='clear-9'></div>
+                        <div class='clear-9'></div>
+                        <div class='overflow font-14' style='height:16px;'>
+                            <span class='c-lion font-11'>{{ re.rank }}위</span>
+                            {{ re.company.name }}
+                        </div>
+                        <div class='clear-9'></div>
+                        <div class='padding radius' style='background:#fafafa;'>
+                            <div class='display-table align-center'>
+                                <div class='table-cell th5-1 spacing c-red' style='border-right:1px solid #fff;'>
+                                    <span class='font-10 c-gray'>min</span>
+                                    <br/>{{ re.min_salary|intcomma }}만원
+                                </div>
+                                <div class='table-cell th5-1 spacing' style='border-right:1px solid #fff;'>
+                                    <span class='font-10 c-gray'>avg</span>
+                                    <br/>{{ re.avg_salary|intcomma }}만원
+                                </div>
+                                <div class='table-cell th5-1 spacing c-green'>
+                                    <span class='font-10 c-gray'>max</span>
+                                    <br/>{{ re.max_salary|intcomma }}만원
+                                </div>
+                            </div>
+                        </div>
+                        <div class='clear-9'></div>
+                    </div>
+                    <div class='table-cell-9'></div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endif %}

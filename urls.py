@@ -24,7 +24,14 @@ urlpatterns = patterns('',
     url(r'^robots$', 'views.robots'),
 
     url(r'^c$', 'views.company_info'),
+    url(r'^company$', 'views.company'),
+    url(r'^company/salary$', 'views.company_salary'),
+    url(r'^company/profile$', 'views.company_profile'),
 
-
+    #rpc
+    url(r'^rpc/company/getList$', 'views.rpc'),
+    url(r'^rpc/company/salary/getList$', 'views.rpc'),
+    url(r'^rpc/visit/getList$', 'views.rpc'),
+    url(r'^rpc/like/getList$', 'views.rpc'),
 
 )

@@ -1,0 +1,29 @@
+{% extends "__list.html" %}
+{% block js_service %}
+<script type="text/javascript">
+var service = "company";
+</script>
+{% endblock %}
+{% block css_basic %}
+    <style>
+        body {background: #fff;}
+        .tab-on{background:#e91d27;color:#fff;}
+        .c-cyan {color: #35beeb;}
+    </style>
+{% endblock %}
+{% block js_basic %}
+    <script type="text/javascript">
+    var company_fields = 'img,name,id,sale,cate,employee_num,addr,avg_salary,cmtary_num,score';
+    var cmtary_fields = "id,rate,site,title,pros,cons,cmt,code,source,author";
+    function company_click(company_id){
+        location_href("/c?company_id="+company_id+"&btn=search&tabbar=hide&title=회사정보");
+    }
+    function cmtary_click(id,source){
+        if (source == 'daenamusum'){
+            location_outlink('https://www.daenamusum.com/spot/view/'+id);
+        } else if (source == 'jobplanet'){
+            location_outlink('https://jobplanet.co.kr/companies/'+id+'/reviews');
+        }
+    }
+    </script>
+{% endblock %}

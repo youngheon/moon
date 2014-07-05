@@ -1,0 +1,46 @@
+{% extends "company/_list.html" %}
+{% block tab %}
+    <div class="position-top b-white th-1 top-bar z-index">
+        <div class="clear-5"></div>
+        <div class="display-table align-center">
+            <div class="table-cell-line"></div>
+            <div class="table-cell th5-1 top-bar-border">
+                <a href="javascript:void(0);" id="visit" class="disblock tab tab-on">
+                    내가 본 회사
+                </a>
+            </div>
+            <div class="table-cell th5-1 top-bar-border" style="border-right:0;">
+                <a href="javascript:void(0);" id="like" class="disblock tab">
+                    좋아하는 회사
+                </a>
+            </div>
+            <div class="table-cell-line"></div>
+        </div>
+    </div>
+    <div class="top-bar"></div>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript">
+    var tab = "visit";
+    var order = "";
+    function list_scroll() {
+        $('.tab').removeClass("tab-on");
+        $('#' + tab).addClass("tab-on");
+        if (tab == "visit") {
+            order = "update_date desc";
+        } else {
+            order = "create_date desc";
+        }
+        scroll_start = true;
+        ajax_skin(tab + "/getList", {"skin":"company/skin/_visit_list", "service": service, "action": "company", "order": order, "page": page, "num": num }, function (re) {
+            list_result(re);
+        });
+    }
+    $(function () {
+        $("body").on("click", ".tab", function () {
+            tab = this.id;
+            list_reset();
+        });
+    });
+    </script>
+{% endblock %}

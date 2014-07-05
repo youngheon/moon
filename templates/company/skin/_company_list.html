@@ -1,0 +1,49 @@
+{% load humanize %}
+{% if result.data %}
+    {% for re in result.data %}
+        <div id="list_{{ request.GET.page }}_{{ forloop.counter }}" class='position-relative margin-3'>
+            <a href="javascript:company_click('{{ re.id }}');" class='disblock '>
+                <div class='display-table'>
+                    <div class='table-cell align-center' style='width:100px;'>
+                        <div class='clear-9'></div>
+                        <div class='clear-9'></div>
+                        <img class="padding-9" style='width:60px;border-radius:50px;border:1px solid #eee;' src='http://thum.buzzni.com/unsafe/180x180/smart/{{ re.img }}' onerror="this.src='http://thum.buzzni.com/unsafe/180x180/smart/http://ui.buzzni.com/i/nocamera.png'"/>
+                        <div class='clear-9'></div>
+                    </div>
+                    <div class='table-cell-9' style="border-bottom:1px solid #eee;"></div>
+                    <div class='table-cell' style="border-bottom:1px solid #eee;">
+                        <div class='clear-9'></div>
+                        <div class='clear-9'></div>
+                        <div class='overflow font-14' style='height:16px;'>
+                            <span class='c-lion font-11'>{{ re.rank }}위</span>
+                            {{ re.name }}
+                        </div>
+                        <div class='clear-9'></div>
+                        <div class='c-gray font-11'>매출 : {{ re.sale|intcomma }}억원</div>
+                        <div class='c-gray font-11'>규모 : {{ re.employee_num|intcomma }}명</div>
+                        <div class='c-gray font-11'>업종 : {{ re.cate }}</div>
+                        <div class='clear-9'></div>
+                        <div class='padding radius' style='background:#fafafa;'>
+                            <div class='display-table align-center'>
+                                <div class='table-cell th5-1 spacing c-red' style='border-right:1px solid #fff;'>
+                                    <span class='font-10 c-gray'>종합평점</span>
+                                    <br/>{{ re.score }}점
+                                </div>
+                                <div class='table-cell th5-1 spacing' style='border-right:1px solid #fff;'>
+                                    <span class='font-10 c-gray'>평가</span>
+                                    <br/><span class=''>{{ re.cmtary_num }}</span><span class='font-11'>개</span>
+                                </div>
+                                <div class='table-cell th5-1 spacing c-green'>
+                                    <span class='font-10 c-gray'>평균연봉</span>
+                                    <br/><span class='strong'>{{ re.avg_salary|intcomma }}</span><span class='font-11'>만원</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='clear-9'></div>
+                    </div>
+                    <div class='table-cell-9'></div>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endif %}

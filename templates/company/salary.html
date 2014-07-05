@@ -1,0 +1,101 @@
+{% extends "company/_list.html" %}
+{% block css %}
+<link rel="stylesheet" href="http://ui.buzzni.com/owl2/assets/owl.carousel.css">
+<link rel="stylesheet" href="http://ui.buzzni.com/owl2/assets/owl.theme.default.min.css">
+<style>
+/* carousel */
+.owl-theme .owl-controls{ position:absolute; left:50%;width:240px;margin-left:-120px;bottom:3px;z-index: 99;}
+.owl-theme .owl-dots .owl-dot span{background:rgba(0,0,0,0.15); width:40px;height:2px;margin:0px; border-radius: 0px;}
+</style>
+{% endblock %}
+{% block tab %}
+    <div class="position-top b-white th-1 top-bar z-index">
+        <div class="clear-5"></div>
+        <div class="display-table align-center">
+            <div class="table-cell-line"></div>
+            <div class="table-cell th6-1 top-bar-border">
+                <a href="javascript:void(0);" id="1" name="사원" class="disblock tab tab-on">
+                    사원
+                </a>
+            </div>
+            <div class="table-cell th6-1 top-bar-border">
+                <a href="javascript:void(0);" id="2" name="주임" class="disblock tab">
+                    주임
+                </a>
+            </div>
+            <div class="table-cell th6-1 top-bar-border">
+                <a href="javascript:void(0);" id="3" name="대리" class="disblock tab">
+                    대리
+                </a>
+            </div>
+            <div class="table-cell th6-1 top-bar-border">
+                <a href="javascript:void(0);" id="4" name="과장" class="disblock tab">
+                    과장
+                </a>
+            </div>
+            <div class="table-cell th6-1 top-bar-border">
+                <a href="javascript:void(0);" id="5" name="차장" class="disblock tab">
+                    차장
+                </a>
+            </div>
+            <div class="table-cell th6-1 top-bar-border" style="border-right:0;">
+                <a href="javascript:void(0);" id="6" name="부장" class="disblock tab">
+                    부장
+                </a>
+            </div>
+            <div class="table-cell-line"></div>
+        </div>
+    </div>
+    <div class="top-bar"></div>
+    <div id="event_block" style="background:#ddd;">
+        <div class="padding">
+            <div style="background:#363636;">
+                <img class="margin-auto" style="width:300px;" src="http://ui.buzzni.com/im/tvshop/tvshop_down_l.png"/>
+            </div>
+        </div>
+        <div class="padding">
+            <div style="background:#363636;">
+                <img class="margin-auto" style="width:300px;" src="http://ui.buzzni.com/im/tvshop/tvshop_down_l.png"/>
+            </div>
+        </div>
+        <div class="padding">
+            <div style="background:#363636;">
+                <img class="margin-auto" style="width:300px;" src="http://ui.buzzni.com/im/tvshop/tvshop_down_l.png"/>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block js %}
+    <script src="http://ui.buzzni.com/owl2/owl.carousel.js"></script>
+    <script type="text/javascript">
+        var tab = "1";
+        var query = "";
+        var order = "avg_salary desc";
+        var cate = "";
+        var type = "사원";
+        var city = "";
+        var min_cmtary_num = 0;
+        function list_scroll() {
+            $('.tab').removeClass("tab-on");
+            $('#' + tab).addClass("tab-on");
+            scroll_start = true;
+            ajax_skin("company/salary/getList", {"skin":"company/skin/_salary_list", "order": "avg_salary desc", "min_cmtary_num":3, "type":type, "page":page, "num": num}, function (re) {
+                list_result(re);
+            });
+        }
+        $(function () {
+            $("body").on("click", ".tab", function () {
+                tab = this.id;
+                type = this.name;
+                list_reset();
+            });
+            $("#event_block").owlCarousel({
+                        stagePadding: 0,
+                        items: 1,
+                        loop: true,
+                        autoplay: true,
+                        autoplayTimeout: 5000
+            });
+        });
+    </script>
+{% endblock %}
