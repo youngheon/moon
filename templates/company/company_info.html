@@ -1,188 +1,109 @@
-{% extends "__list.html" %}
+{% extends "company/_list.html" %}
 {% load humanize %}
+{% block css %}
+    <style>
+        .tab-off{border-bottom:1px solid #ddd;border-top:1px solid #eee;background:#fafafa;}
+        .tab-on{background:#fff;color:#333;border:1px solid #ddd;border-bottom:0;}
+        .c-cyan {color: #35beeb;}
+    </style>
+{% endblock %}
 {% block tab %}
-
 {% if re.success == True %}
-    <div class="position right-9 mtop-9">
-        <button id="like_company_{{ re.result.id }}_bt" onclick="like_save('company', '{{re.result.id}}');" class="like off"></button>
-        <span id="like_company_{{ re.result.id }}_num" class="c-gray font-11 "> {{re.result.like_num}}</span>
-    </div>
-    <div  class="b-white">
-        <div class='display-table'>
-            <div class='table-cell align-center' style='width:120px;'>
-                <div class='clear-3'></div>
-                <img class='margin-9' style='width:80px;' onerror="this.src='http://thum.buzzni.com/unsafe/180x180/smart/http://ui.buzzni.com/i/nocamera.png'"  src='http://thum.buzzni.com/unsafe/180x180/smart/{{ re.result.img }}'/>
-                <div class='clear-3'></div>
-            </div>
-            <div class='table-cell-9'></div>
-            <div class='table-cell'>
-                <div class='clear-9'></div>
-                <div class='clear-9'></div>
-                <div class='overflow font-15' style='height:16px;'>{{ re.result.name }}</div>
-                <div class='clear-9 border-bottom'></div>
-                <div class='clear-9'></div>
-                <div class='c-gray font-11'>매출 : {{ re.result.sale|intcomma }}억원</div>
-                <div class='c-gray font-11'>규모 : {{ re.result.employee_num|intcomma }}명</div>
-                <div class='c-gray font-11'>업종 : {{ re.result.cate }}</div>
-                <div class='clear-9'></div>
-            </div>
-            <div class='table-cell-9'></div>
-        </div>
-    </div>
-    <div id="menu_bar" class="position z-index top-bar th-1" style="height:auto;">
-        <div class='clear border-bottom'></div>
-        <div class='clear-5' style='background:#fafafa;'></div>
-        <div class='display-table' style='background:#fafafa;'>
-            <div class='table-cell align-center th5-1' style='border-right:1px solid #eee;'>
-                <a href="javascript:void(0);" id="score" class="disblock tab">
-                    <span class='c-gray font-10'>종합평점 {{ re.result.score }}점</span>
-                    <div class='clear-3'></div>
-                    {% if re.result.score >= 90 %}
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    {% endif %}
-                    {% if re.result.score >= 80 and re.result.score < 90 %}
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_half.png'/>
-                    {% endif %}
-                    {% if re.result.score >= 70 and re.result.score < 80 %}
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>
-                    {% endif %}
-                    {% if re.result.score >= 60 and re.result.score < 70 %}
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_half.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>
-                    {% endif %}
-                    {% if re.result.score >= 50 and re.result.score < 60 %}
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>
-                    {% endif %}
-                    {% if re.result.score < 50 %}
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_half.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>
-                    <img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>
-                    {% endif %}
-                </a>
-            </div>
-            <div class='table-cell align-center th5-1' style='border-right:1px solid #eee;'>
-                <a href="javascript:void(0);" id="cmtary_num" class="disblock tab">
-                    <span class='c-gray font-10'>평가</span>
-                    <div class='clear-3'></div>
-                    <span class=''>{{ re.result.cmtary_num|intcomma }}</span><span class='font-11'>개</span>
-                </a>
-            </div>
-            <div class='table-cell align-center th5-1'>
-                <a href="javascript:void(0);" id="avg_salary" class="disblock tab">
-                    <span class='c-gray font-10'>평균연봉</span>
-                    <div class='clear-3'></div>
-                    <span class='strong'>{{ re.result.avg_salary|intcomma }}</span><span class='font-11'>만원</span>
-                </a>
+    <div  class="b-white" style="height:130px;">
+        <div class="align-center">
+            <div class='clear-9'></div>
+            <img class="padding-9 b-white" style='width:60px;border-radius:50px;border:1px solid #eee;' src='http://thum.buzzni.com/unsafe/180x180/smart/{{ re.result.img }}' onerror="this.src='http://thum.buzzni.com/unsafe/180x180/smart/http://ui.buzzni.com/i/nocamera.png'"/>
+            <div class='clear-9'></div>
+            <div class='overflow font-14' style='height:16px;'>
+                {{ re.result.name }}
             </div>
         </div>
-        <div class='clear-9' style='background:#fafafa;'></div>
-        <div class="display-table align-center" style='background:#fafafa;'>
-            <div class="table-cell-line"></div>
-            <div class="table-cell th5-1">
-                <div class="clear-3 line" id="line_score"></div>
+    </div>
+    <div id="menu" class="position">
+        <div class="display-table align-center">
+            <div class="table-cell-line tab-off"></div>
+            <div class="table-cell th5-1 top-bar-border">
+                <a href="javascript:void(0);" id="score" class="disblock tab tab-on" style="line-height:16px;">
+                    <div class="clear-5"></div>
+                    <span class='font-10 c-gray'>종합평점</span>
+                    <br/>{{ re.result.score }}점
+                    <div class="clear-5"></div>
+                </a>
             </div>
-            <div class="table-cell-9"></div>
-            <div class="table-cell th5-1">
-                <div class="clear-3 line" id="line_cmtary_num"></div>
+            <div class="table-cell th5-1 top-bar-border">
+                <a href="javascript:void(0);" id="cmtary" class="disblock tab tab-off" style="line-height:16px;">
+                    <div class="clear-5"></div>
+                    <span class='font-10 c-gray'>평가</span>
+                    <br/><span class=''>{{ re.result.cmtary_num }}</span><span class='font-11'>개</span>
+                    <div class="clear-5"></div>
+                </a>
             </div>
-            <div class="table-cell-9"></div>
-            <div class="table-cell th5-1">
-                <div class="clear-3 line" id="line_avg_salary"></div>
+            <div class="table-cell th5-1 top-bar-border" style="border-right:0;">
+                <a href="javascript:void(0);" id="salary" class="disblock tab tab-off" style="line-height:16px;">
+                    <div class="clear-5"></div>
+                    <span class='font-10 c-gray'>평균연봉</span>
+                    <br/><span class='strong'>{{ re.result.avg_salary|intcomma }}</span><span class='font-11'>만원</span>
+                    <div class="clear-5"></div>
+                </a>
             </div>
-            <div class="table-cell-line"></div>
+            <div class="table-cell-line tab-off"></div>
         </div>
     </div>
-    <div style="height:50px;"></div>
-    <div class="margin-9 block-hide" id="cmtary_num_block" style="margin-left:15px;">
-        <div class="font-13 c-gray strong"> - 회사관련 태그</div>
-        <div class="clear-9"></div>
-        <div id="cmtary_tag"></div>
+    <div style="height:45px;"></div>
+    <div class="margin-9 block-hide block" id="cmtary_block">
+        <div style="margin-left:15px;" id="cmtary_tag"></div>
         <div class="clear-9"></div>
     </div>
-    <div class="margin-9" id="score_block" style="margin-left:15px;">
-        <div class="clear-9"></div>
-        <div class="pull-left" style="width:80px;border-right:1px solid #ddd;">
+    <div class="margin-9 block-hide block" id="score_block">
+        <div class="pull-left" style="width:80px;border-right:1px solid #ddd;margin-left:15px;">
             <div style="height:16px;">
-                <img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;">
+                <img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;">
             </div>
             <div style="height:16px;">
-                <img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;">
+                <img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;">
             </div>
             <div style="height:16px;">
-                <img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;">
+                <img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;">
             </div>
             <div style="height:16px;">
-                <img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;">
+                <img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;">
             </div>
             <div style="height:16px;">
-                <img src="http://ui.buzzni.com/im/starbig_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/im/starbig_off.png" style="width:14px;margin-top:-5px;">
+                <img src="http://ui.buzzni.com/brandmoa/entity_on.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;"><img src="http://ui.buzzni.com/brandmoa/entity_off.png" style="width:14px;margin-top:-5px;">
             </div>
         </div>
         <div class="pull-left" id="cmtary_score"></div>
         <div class="clear-9"></div>
-        <div class="font-13 c-gray strong"> - 의견분석</div>
     </div>
-    <div class="margin-9 block-hide" id="avg_salary_block">
+    <div class="margin-9 block-hide block" id="salary_block">
         <div class="display-table">
             <div class="table-cell th3-1">
-                <button class="bt-basic th-1 spacing" style="height:60px;line-height:18px;">
-                    <span class="c-gray fonty-10">최저</span>
-                    <br/><span class=" c-red font-15">{{ re.result.min_salary|intcomma }}</span><span class="c-gray fonty-10">만원</span>
+                <button class="bt-basic th-1 spacing" style="height:50px;line-height:18px;border-radius:25px;">
+                    <span class="c-gray font-9">min</span>
+                    <br/><span class=" c-red">{{ re.result.min_salary|intcomma }}</span><span class="c-gray fonty-10">만원</span>
                 </button>
             </div>
             <div class="table-cell-9"></div>
             <div class="table-cell">
-                <button class="bt-basic th-1 spacing" style="height:60px;line-height:18px;">
-                    <span class="c-gray fonty-10">평균</span>
-                    <br/><span class=" c-black font-15">{{ re.result.avg_salary|intcomma }}</span><span class="c-gray fonty-10">만원</span>
+                <button class="bt-basic th-1 spacing" style="height:50px;line-height:18px;border-radius:25px;">
+                    <span class="c-gray font-9">avg</span>
+                    <br/><span class=" c-black">{{ re.result.avg_salary|intcomma }}</span><span class="c-gray fonty-10">만원</span>
                 </button>
             </div>
             <div class="table-cell-9"></div>
             <div class="table-cell th3-1">
-                <button class="bt-basic th-1 spacing" style="height:60px;line-height:18px;">
-                    <span class="c-gray fonty-10">최대</span>
-                    <br/><span class=" c-green font-15">{{ re.result.max_salary|intcomma }}</span><span class="c-gray fonty-10">만원</span>
+                <button class="bt-basic th-1 spacing" style="height:50px;line-height:18px;border-radius:25px;">
+                    <span class="c-gray font-9">max</span>
+                    <br/><span class=" c-green">{{ re.result.max_salary|intcomma }}</span><span class="c-gray fonty-10">만원</span>
                 </button>
             </div>
         </div>
-    </div>
-    <div class="position-fixed th-1 trans-dark" style="bottom:0px;height:45px;line-height:42px;background:#e9ebee;border-top:1px solid #d7d8dd;z-index:998;"></div>
-    <div class="position-fixed th-1" style="bottom:0px;height:45px;line-height:42px;z-index:999;">
-        <div class="display-table">
-            <div class="table-cell-9"></div>
-            <div class="table-cell align-center">
-                <button class="bt-basic th-1" style="height:34px;padding-left:9px;padding-right:9px;" onclick="location_href('/cmtary/add?title=평가 부탁해요&tabbar=hide&btn=upload&company_id={{ re.result.id }}&company_name={{ re.result.name }}&company_img={{ re.result.img }}');">
-                    이 회사에 대해 아시는 분만 평가 부탁해요
-                </button>
-            </div>
-            <div class="table-cell-9"></div>
-        </div>
+        <div class='clear-9'></div>
     </div>
 {% else %}
     <div class="b-white margin padding-9 box" style="min-height:600px;">
         <div class="clear-9" style="height:90px;"></div>
-        <div class="align-center">상세정보가 없습니다.</div>
+        <div class="align-center font-11">상세정보가 없습니다.</div>
     </div>
     <div class="clear-9"></div>
 {% endif %}
@@ -196,180 +117,44 @@ var order = "create_date desc";
 var like_id = "";
 var alarm_id = "";
 function list_scroll(){
-    $('.line').removeClass("b-lion");
-    $('#line_'+tab).addClass("b-lion");
+    $('.tab').removeClass("tab-on").addClass("tab-off");
+    $('#' + tab).removeClass("tab-off").addClass("tab-on");
+    $('.block').hide();
     scroll_start = true;
-    if (tab == 'cmtary_num'){
-        $('#score_block').hide();
-        $('#avg_salary_block').hide();
-        $('#cmtary_num_block').show();
-        ajax_json("cmtary/getList", {"table": 'company', "table_id": company_id, "order": "random()", "page": page, "num": num, "fields": cmtary_fields}, function (re) {
-            list_result(re, 'cmtary');
+    if (tab == 'cmtary'){
+        $('#cmtary_block').show();
+        ajax_skin("cmtary/getList", {"skin": "company/skin/_cmtary_list", "table": 'company', "table_id": company_id, "order": "random()", "page": page, "num": num, "fields": cmtary_fields}, function (re) {
+            list_result(re);
         });
     } else if (tab == 'score'){
         $('#score_block').show();
-        $('#avg_salary_block').hide();
-        $('#cmtary_num_block').hide();
-        if (page == 1){
-            ajax_json("opn/cloud", {"table": 'company', "table_id": company_id, "data_num": 10, "num": 10}, function (re) {
-                list_result(re, 'opn');
-                $("#box_1").show();
-            });
-        } else {
+        ajax_skin("opn/cloud", {"skin": "company/skin/_opn_cloud", "table": 'company', "table_id": company_id, "data_num": 10, "num": 10}, function (re) {
+            list_result(re);
             list_end();
-        }
-    } else {
-        $('#score_block').hide();
-        $('#avg_salary_block').show();
-        $('#cmtary_num_block').hide();
-        if (page == 1){
-            ajax_json("company/salary/getList", {"company_id": company_id, "order": "rank asc"}, function (re) {
-                list_result(re, 'salary');
-            });
-        } else {
+        });
+    } else if (tab == 'salary') {
+        $('#salary_block').show();
+        ajax_skin("company/salary/getList", {"skin": "company/skin/_company_salary", "company_id": company_id, "order": "rank asc"}, function (re) {
+            list_result(re);
             list_end();
-        }
+        });
     }
-}
-function skin_salary(item, table, skin) {
-    var re = " \
-        <div class='margin'><span class=' c-cyan strong'>"+item['type']+"</span></div>\
-        <div class='top-bar b-white' style='height:auto;'>\
-            <div class='clear-9'></div>\
-            <div class='display-table' style='background:#fafafa;'>\
-                <div class='table-cell align-center th5-1 font-13 c-red' style='border-right:1px solid #eee;'>\
-                    <span class='font-10 c-gray'>min</span><br/>\
-                    "+item['min_salary'].format()+"만원\
-                </div>\
-                <div class='table-cell align-center th5-1 font-13' style='border-right:1px solid #eee;'>\
-                    <span class='font-10 c-gray'>avg</span><br/>\
-                    "+item['avg_salary'].format()+"만원\
-                </div>\
-                <div class='table-cell align-center th5-1 font-13 c-green'>\
-                    <span class='font-10 c-gray'>max</span><br/>\
-                    "+item['max_salary'].format()+"만원\
-                </div>\
-            </div>\
-            <div class='clear-9'></div>\
-        </div>\
-        <div class='clear-9'></div>\
-        ";
-    return re;
-}
-function skin_opn(item, table, skin) {
-    var re = " \
-        <div id='list_"+item['id']+"' class='position-relative b-white box margin-7' >\
-        <a href=\"javascript:$('#box_"+list_count+"').show();\" class='padding-9 font-16 strong disblock' style='padding:12px;'>\
-            <span class='c-lion'>"+list_count+"위</span>\
-            "+item['expr']+" "+item['attr']+"\
-            <span class='c-gray font-11 margin-left'>"+item['num']+"개 의견 </span>\
-        </a>\
-        <div class='clear' style='border-bottom:1px solid #ddd;'></div>\
-        <div id='box_"+list_count+"' class='block-hide'>\
-        ";
-    for (var j = 0; j < item['data'].length; ++j) {
-        re += "\
-            <div class='clear border-bottom'></div>\
-            <a href=\"javascript:opn_click('"+item['data'][j]['id']+"');\" class='disblock '>\
-                <div class='padding-9 margin font-13' style='line-height:20px;'>"+item['data'][j]['snip']+"</div>\
-            </a>\
-        ";
-    }
-    re += "</div></div>\
-        ";
-    return re;
-}
-function skin_cmtary(item, table, skin) {
-    var item_rate = "";
-    for (var i = 0; i < Math.floor(item['rate']/2); ++i) {
-        item_rate += "<img style='height:15px;' src='http://ui.buzzni.com/im/starbig_on.png'/>";
-    }
-    for (var i = 0; i < 5-Math.floor(item['rate']/2); ++i) {
-        item_rate += "<img style='height:15px;' src='http://ui.buzzni.com/im/starbig_off.png'/>";
-    }
-    var item_pros = "";
-    if (item['pros'] != null) item_pros = item['pros']+"<br/>";
-    var item_cons = "";
-    if (item['cons'] != null) item_cons = item['cons']+"<br/>";
-    var item_cmt = "";
-    if (item['cmt'] != null) item_cmt = item['cmt']+"<br/>";
-    var item_title = "";
-    if (item['title'] != null) item_title = "<span class='strong'>"+item['title']+"</span><br/>";
-    var item_author = "익명";
-    if (item['author'] != null) item_author = item['author'];
-    var re = " \
-        <div id='list_"+item['id']+"' class='position-relative b-white box margin-7' >\
-            <a href=\"javascript:cmtary_click('"+item['code']+"','"+item['source']+"');\" class='disblock '>\
-                <div class='display-table'>\
-                    <div class='table-cell' style='width:36px;'>\
-                        <img class='th-1 margin-9' src='http://thum.buzzni.com/unsafe/100x100/smart/http://thum.buzzni.com/unsafe/100x100/smart/http://ui.buzzni.com/newtvshop/people.png'/>\
-                    </div>\
-                    <div class='table-cell-line'></div>\
-                    <div class='table-cell-9'></div>\
-                    <div class='table-cell'>\
-                        <div class='clear-9'></div>\
-                        <span class='c-cyan'>"+item_author+"</span>\
-                        <div class='clear-3'></div>\
-                        "+item_rate+"\
-                    </div>\
-                </div>\
-                <div class='padding margin-9 font-13' style='line-height:20px;'>\
-                    "+item_title+item_pros+item_cons+item_cmt+"\
-                </div>\
-                <div class='align-right margin-right font-9 c-gray'>출처:"+item['source']+"</div>\
-                <div class='clear-9'></div>\
-            </a>\
-            <div class='clear border-bottom'></div>\
-            <div class='clear-5' style='background:#fafafa;'></div>\
-            <div class='display-table' style='background:#fafafa;'>\
-                <div class='table-cell align-center th3-1 c-gray' style='border-right:1px solid #eee;'>\
-                    <img src='http://ui.buzzni.com/im/gallery_like.png' style='height:22px;margin-top:-3px;'/> 추천\
-                </div>\
-                <div class='table-cell align-center th3-1 c-gray' style='border-right:1px solid #eee;'>\
-                    <img src='http://ui.buzzni.com/im/gallery_dislike.png' style='height:22px;margin-top:-3px;'/> 반대\
-                </div>\
-                <div class='table-cell align-center th3-1 c-gray'>\
-                    <img src='http://ui.buzzni.com/im/gallery_comment.png' style='height:22px;margin-top:-3px;'/> 댓글\
-                </div>\
-            </div>\
-            <div class='clear-5' style='background:#fafafa;'></div>\
-        </div>\
-        ";
-    return re;
-}
-function skin_score(item, table, skin, i) {
-    var re = " \
-        <div style='height:16px;'>\
-            <div class='clear-3'></div>\
-            <div class='font-10 pull-left b-gray' style='width:"+Math.floor(item['rate']*150)+"px;height:11px;'></div>\
-            <div class='font-10 pull-left margin-left spacing c-gray'>\
-                "+Math.floor(item['rate']*100)+"% ("+item['num']+")\
-            </div>\
-        </div>\
-    ";
-    return re;
-}
-function skin_tag(item, table, skin, i) {
-    var re = " \
-        <button class='bt-basic b-white' style='margin-bottom:2px;padding-left:5px;padding-right:5px;'>"+i+". "+item['name']+"</button>\
-    ";
-    return re;
 }
 $(function() {
     $(window).scroll(function () {
-        if ($(this).scrollTop() > 103 ) {
-            $('#menu_bar').removeClass('pisition').addClass('position-fixed').addClass('top-0');
+        if ($(this).scrollTop() > 130 ) {
+            $('#menu').removeClass('pisition').addClass('position-top');
         } else {
-            $('#menu_bar').addClass('pisition').removeClass('position-fixed').removeClass('top-0');
+            $('#menu').addClass('pisition').removeClass('position-top');
         }
     });
-    ajax_json("cmtary/scoreStat", {  "table_id": company_id, "table":"company"}, function (re) {
-        append_result(re, 'score','','cmtary_score');
+    ajax_skin("cmtary/scoreStat", {"skin":"company/skin/_cmtary_score", "table_id": company_id, "table":"company"}, function (re) {
+        $('#cmtary_score').append(re);
     });
-    ajax_json("tag/getList", {  "table_id": company_id, "table":"company", "num":16}, function (re) {
-        append_result(re, 'tag','','cmtary_tag');
+    ajax_skin("tag/getList", {"skin":"company/skin/_cmtary_tag", "table_id": company_id, "table":"company", "num":16}, function (re) {
+        $('#cmtary_tag').append(re);
     });
-    ajax_json("company/userInfo", {  "company_id": company_id}, function (re) {
+    ajax_json("company/userInfo", { "company_id": company_id}, function (re) {
         if (re.success == true) {
             like_id = re.result.like_id;
             alarm_id = re.result.alarm_id;
@@ -378,11 +163,11 @@ $(function() {
                 $('#like_company_'+company_id+"_bt").attr('like_id',like_id);
             }
             if (alarm_id > 0 ){
-                $('#alarm_company_'+company_id+"_bt").removeClass("toggle-off").addClass("toggle-on");
+                $('#alarm_company_'+company_id+"_bt").removeClass("off").addClass("on");
                 $('#alarm_company_'+company_id+"_bt").attr('alarm_id',alarm_id);
             }
         } else {
-            alert(re.msg);
+            //alert(re.msg);
         }
     });
     $("body").on("click", ".tab", function(){
@@ -390,7 +175,6 @@ $(function() {
         list_reset();
         $("body").scrollTop(0);
     });
-    visit_save("company", company_id);
 });
 </script>
 {% endblock %}

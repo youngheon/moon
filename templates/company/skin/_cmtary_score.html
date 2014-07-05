@@ -1,0 +1,12 @@
+{% load humanize %}
+{% if result.data %}
+    {% for re in result.data %}
+        <div style='height:15px;'>
+            <div class='clear-3'></div>
+            <div class='font-10 pull-left b-gray' style='width:{% widthratio re.rate 1 160 %}px;height:11px;'></div>
+            <div class='font-10 pull-left margin-left spacing c-gray'>
+                {% widthratio re.rate 1 100 %}% ({{ re.num }})
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

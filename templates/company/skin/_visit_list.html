@@ -1,32 +1,38 @@
 {% load humanize %}
 {% if result.data %}
     {% for re in result.data %}
-        <div id="list_{{ re.id }}" class='position-relative b-white margin-7 box'>
+        <div class='position-relative margin-3'>
             <a href="javascript:company_click('{{ re.company.id }}');" class='disblock '>
                 <div class='display-table'>
-                    <div class='table-cell align-center' style='width:120px;'>
-                        <div class='clear-3'></div>
-                        <img class='margin-9' style='width:80px;'  src='http://thum.buzzni.com/unsafe/180x180/smart/{{ re.company.img }}' onerror="this.src='http://thum.buzzni.com/unsafe/180x180/smart/http://ui.buzzni.com/i/nocamera.png'"/>
-                        <div class='clear-3'></div>
-                    </div>
-                    <div class='table-cell-9'></div>
-                    <div class='table-cell'>
+                    <div class='table-cell align-center' style='width:80px;'>
                         <div class='clear-9'></div>
-                        <div class='clear-9'></div>
-                        <div class='overflow font-15' style='height:16px;'>{{ re.company.name }}</div>
-                        <div class='clear-9 border-bottom'></div>
-                        <div class='clear-9'></div>
-                        <div class='c-gray font-11'>매출 : {{ re.company.sale|intcomma }}억원</div>
-                        <div class='c-gray font-11'>규모 : {{ re.company.employee_num|intcomma }}명</div>
-                        <div class='c-gray font-11'>업종 : {{ re.company.cate }}</div>
+                        <img class="padding" style='width:50px;border-radius:30px;border:1px solid #eee;' src='http://thum.buzzni.com/unsafe/180x180/smart/{{ re.company.img }}' onerror="this.src='http://thum.buzzni.com/unsafe/180x180/smart/http://ui.buzzni.com/i/nocamera.png'"/>
                         <div class='clear-9'></div>
                     </div>
-                    <div class='table-cell-9'></div>
+                    <div class='table-cell-9' style="border-bottom:1px solid #eee;"></div>
+                    <div class='table-cell' style="border-bottom:1px solid #eee;">
+                        <div class='clear-9'></div>
+                        <div class='clear-9'></div>
+                        <div class='overflow font-14' style='height:16px;'>
+                            <span class='c-lion font-11'>{{ re.rank }}위</span>
+                            {{ re.company.name }}
+                        </div>
+                        <div class='clear-9'></div>
+                        <div class='margin-left'>
+                            <div class='c-gray font-11'>매출 : {{ re.company.sale|intcomma }}억원</div>
+                            <div class='c-gray font-11'>규모 : {{ re.company.employee_num|intcomma }}명</div>
+                        </div>
+                        <div class='clear-9'></div>
+                    </div>
+                    <div class='table-cell-9' style="border-bottom:1px solid #eee;"></div>
+                    <div class='table-cell-9' style="border-bottom:1px solid #eee;"></div>
                 </div>
             </a>
-            <div class='position right-0 top-0'>
-                <a href="javascript:action_remove('{{ flag }}', 'company', '{{ re.company.id }}', '{{ re.id }}');">
-                    <img src='http://ui.buzzni.com/brandmoa/close.png' class='list-logo' />
+            <div class='position right-5 top-9'>
+                <a class="border:1px solid #eee;" href="javascript:action_remove('{{ flag }}', 'company', '{{ re.company.id }}', '{{ re.id }}');">
+                    <div style="border:1px solid #eee;border-radius:20px;width:20px;height:20px;">
+                        <img src='http://ui.buzzni.com/brandmoa/close.png'/>
+                    </div>
                 </a>
             </div>
         </div>

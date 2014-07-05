@@ -33,5 +33,11 @@ urlpatterns = patterns('',
     url(r'^rpc/company/salary/getList$', 'views.rpc'),
     url(r'^rpc/visit/getList$', 'views.rpc'),
     url(r'^rpc/like/getList$', 'views.rpc'),
+    url(r'^rpc/tag/getList$', 'views.rpc'),
+    url(r'^rpc/cmtary/scoreStat$', 'views.rpc'),
+    url(r'^rpc/cmtary/getList$', 'views.rpc'),
+    url(r'^rpc/opn/cloud$', 'views.rpc'),
+
+
 
 )

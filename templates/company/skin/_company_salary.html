@@ -1,0 +1,25 @@
+{% load humanize %}
+{% if result.data %}
+    {% for re in result.data %}
+        <div class='margin' style="margin-left:15px;"><span class=' c-cyan strong'>{{ re.type }}</span></div>
+        <div class='b-white margin-3' style="border-top:1px solid #eee;border-bottom:1px solid #eee;">
+            <div class='clear-9'></div>
+            <div class='display-table'>
+                <div class='table-cell align-center th5-1 c-red' style='border-right:1px solid #eee;'>
+                    <span class='font-10 c-gray'>min</span>
+                    <br/>{{ re.min_salary }}만원
+                </div>
+                <div class='table-cell align-center th5-1' style='border-right:1px solid #eee;'>
+                    <span class='font-10 c-gray'>avg</span>
+                    <br/>{{ re.avg_salary }}만원
+                </div>
+                <div class='table-cell align-center th5-1 c-green'>
+                    <span class='font-10 c-gray'>max</span>
+                    <br/>{{ re.max_salary }}만원
+                </div>
+            </div>
+            <div class='clear-9'></div>
+        </div>
+        <div class='clear-9'></div>
+    {% endfor %}
+{% endif %}

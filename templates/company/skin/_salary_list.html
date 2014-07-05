@@ -1,7 +1,7 @@
 {% load humanize %}
 {% if result.data %}
     {% for re in result.data %}
-        <div id="list_{{ request.GET.page }}_{{ forloop.counter }}" class='position-relative margin-3'>
+        <div class='position-relative margin-3'>
             <a href="javascript:company_click('{{ re.company.id }}');" class='disblock '>
                 <div class='display-table'>
                     <div class='table-cell align-center' style='width:80px;'>

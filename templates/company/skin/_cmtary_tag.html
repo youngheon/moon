@@ -1,0 +1,6 @@
+{% load humanize %}
+{% if result.data %}
+    {% for re in result.data %}
+        <button class='bt-basic b-white font-11' style='margin-bottom:3px;padding-left:7px;padding-right:7px;border-radius:18px;height:22px;line-height:22px;'>{{ re.name }}</button>
+    {% endfor %}
+{% endif %}

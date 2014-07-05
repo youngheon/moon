@@ -15,6 +15,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="shopping_mobile" />
     <orderEntry type="module" module-name="adme_mobile" />
+    <orderEntry type="module" module-name="buzz_mobile" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

@@ -1,0 +1,24 @@
+{% load humanize %}
+{% if result.data %}
+    {% for re in result.data %}
+        <div class='position-relative margin-3'>
+            <a href="javascript:$('#box_{{ forloop.counter }}').show();" class='padding-9 font-13 disblock' style='padding:12px;border-bottom:1px solid #ddd;'>
+                <span class='c-lion font-10'>{{ forloop.counter }}위</span>
+                {{ re.expr }} {{ re.attr }}
+                <span class='c-gray font-10 margin-left'>{{ re.num }}개 의견 </span>
+            </a>
+            <div id='box_{{ forloop.counter }}' class='block-hide'>
+                {% for r in re.data %}
+                    <a href="javascript:void(0);" class='disblock' style="border-bottom:1px solid #f5f5f5;margin-left:20px;">
+                        <div class='padding-9 margin c-gray'>
+                            {% autoescape off %}{{ r.snip }}{% endautoescape %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+    <script type="text/javascript">
+    $('#box_1').show();
+    </script>
+{% endif %}

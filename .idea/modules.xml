@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../adme_mobile/.idea/adme_mobile.iml" filepath="$PROJECT_DIR$/../adme_mobile/.idea/adme_mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../buzz_mobile/.idea/buzz_mobile.iml" filepath="$PROJECT_DIR$/../buzz_mobile/.idea/buzz_mobile.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/moon.iml" filepath="$PROJECT_DIR$/.idea/moon.iml" />
       <module fileurl="file://$PROJECT_DIR$/../shopping_mobile/.idea/shopping_mobile.iml" filepath="$PROJECT_DIR$/../shopping_mobile/.idea/shopping_mobile.iml" />
     </modules>

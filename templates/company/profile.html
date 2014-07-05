@@ -32,7 +32,7 @@
             order = "create_date desc";
         }
         scroll_start = true;
-        ajax_skin(tab + "/getList", {"skin":"company/skin/_visit_list", "service": service, "action": "company", "order": order, "page": page, "num": num }, function (re) {
+        ajax_skin(tab + "/getList", {"skin":"company/skin/_visit_list", "flag": tab, "service": service, "action": "company", "order": order, "page": page, "num": num }, function (re) {
             list_result(re);
         });
     }

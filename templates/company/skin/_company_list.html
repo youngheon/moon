@@ -1,7 +1,7 @@
 {% load humanize %}
 {% if result.data %}
     {% for re in result.data %}
-        <div id="list_{{ request.GET.page }}_{{ forloop.counter }}" class='position-relative margin-3'>
+        <div class='position-relative margin-3'>
             <a href="javascript:company_click('{{ re.id }}');" class='disblock '>
                 <div class='display-table'>
                     <div class='table-cell align-center' style='width:100px;'>
@@ -19,9 +19,11 @@
                             {{ re.name }}
                         </div>
                         <div class='clear-9'></div>
-                        <div class='c-gray font-11'>매출 : {{ re.sale|intcomma }}억원</div>
-                        <div class='c-gray font-11'>규모 : {{ re.employee_num|intcomma }}명</div>
-                        <div class='c-gray font-11'>업종 : {{ re.cate }}</div>
+                        <div class='margin-left'>
+                            <div class='c-gray font-11'>매출 : {{ re.sale|intcomma }}억원</div>
+                            <div class='c-gray font-11'>규모 : {{ re.employee_num|intcomma }}명</div>
+                            <div class='c-gray font-11'>업종 : {{ re.cate }}</div>
+                        </div>
                         <div class='clear-9'></div>
                         <div class='padding radius' style='background:#fafafa;'>
                             <div class='display-table align-center'>
